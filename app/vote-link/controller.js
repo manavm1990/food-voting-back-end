@@ -32,6 +32,10 @@ const controller = {
       },
     });
 
+    if (!voteLink.isActive) {
+      throw new Error("This link is no longer active");
+    }
+
     const indexOfVote = voteLink.votes.findIndex(
       (vote) => vote.cuisine === cuisineVote
     );
@@ -52,6 +56,8 @@ const controller = {
       },
     });
   },
+
+  // TODO: Deactivate link
 };
 
 const updatedVote = await controller.vote(
