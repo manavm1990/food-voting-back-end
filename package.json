@@ -3,7 +3,7 @@
   "main": "app/index.js",
   "type": "module",
   "scripts": {
-        "dep-graph": "depcruise --exclude \"^node_modules\" --output-type dot src | dot -T svg > dependency-graph.svg",
+    "dep-graph": "depcruise --exclude \"^node_modules\" --output-type dot src | dot -T svg > dependency-graph.svg",
     "test": "vitest"
   },
   "devDependencies": {
@@ -18,6 +18,10 @@
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
     "prettier": "^2.7.1",
+    "prisma": "^4.10.1",
     "vitest": "^0.28.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.10.1"
   }
 }
