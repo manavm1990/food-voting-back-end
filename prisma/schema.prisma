@@ -8,7 +8,7 @@ datasource db {
 }
 
 type VoteLinkVote {
-  count   Int
+  numOfVotes   Int
   cuisine String
 }
 
@@ -28,7 +28,7 @@ model VoteLink {
   id       String         @id @default(auto()) @map("_id") @db.ObjectId
   admin    User           @relation(fields: [adminId], references: [id])
   adminId  String         @db.ObjectId
-  isActive Boolean
-  url      String
+  isActive Boolean        @default(true)
+  url      String         @unique
   votes    VoteLinkVote[]
 }
