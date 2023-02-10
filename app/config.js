@@ -7,5 +7,5 @@ export default {
     secret: process.env.JWT_SECRET,
   },
   port: process.env.PORT,
-  salt: process.env.SALT,
+  saltRounds: Number(process.env.SALT_ROUNDS) || 10,
 };
