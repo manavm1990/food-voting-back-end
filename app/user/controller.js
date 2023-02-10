@@ -6,10 +6,4 @@ const controller = {
   },
 };
 
-const createdUser = await controller
-  .create({ username: "JACK", password: "LOWERME" })
-  .catch((error) => {
-    console.error(error.message);
-  });
-
-console.log(createdUser);
+export default controller;
