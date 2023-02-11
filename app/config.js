@@ -9,4 +9,5 @@ export default {
   port: process.env.PORT || 3000,
   saltRounds: Number(process.env.SALT_ROUNDS) || 10,
   superAdminId: process.env.SUPER_ADMIN_ID,
+  yelpAPIKey: process.env.YELP_API_KEY,
 };
