@@ -28,6 +28,10 @@ const controller = {
       data,
     });
   },
+
+  delete(id) {
+    return client.user.delete({ where: { id } });
+  },
 };
 
 export default controller;
