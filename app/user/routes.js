@@ -40,7 +40,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/super-admin", async (req, res) => {
+router.post("/super", async (req, res) => {
   if (!req.user?.isSuperUser) {
     res.status(401).json({ message: "Unauthorized" });
   } else {
