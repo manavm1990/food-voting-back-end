@@ -6,7 +6,7 @@ export default {
     {
       // https://www.prisma.io/docs/reference/api-reference/error-reference#prisma-client-query-engine
       code: "P2002",
-      message: "If this related to a username, it's already taken.",
+      message: "If this is related to a username, it's already taken.",
     },
     {
       code: "C0001",
@@ -19,4 +19,5 @@ export default {
   },
   port: process.env.PORT || 3000,
   saltRounds: Number(process.env.SALT_ROUNDS) || 10,
+  superAdminId: process.env.SUPER_ADMIN_ID,
 };
