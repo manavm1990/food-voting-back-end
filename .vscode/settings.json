@@ -16,5 +16,6 @@
   "files.autoSave": "onFocusChange",
   "files.eol": "\n",
   "files.trimTrailingWhitespace": true,
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "cSpell.words": ["votelinks"]
 }
