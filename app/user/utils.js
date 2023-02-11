@@ -5,8 +5,8 @@
  */
 
 import bcrypt from "bcrypt";
-import config from "../config.js";
 import jwt from "jsonwebtoken";
+import config from "../config.js";
 
 function validateUser(user) {
   if (user.username?.length < 3 || user.username?.length > 20)
@@ -22,8 +22,11 @@ function validateUser(user) {
 export const generateToken = (user) => {
   return jwt.sign(
     {
-      id: user.id,
-      username: user.username,
+      user: {
+        id: user.id,
+        username: user.username,
+        isSuperUser: user.isSuperUser,
+      },
     },
     config.jwt.secret,
     {
