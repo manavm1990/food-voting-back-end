@@ -41,4 +41,17 @@ const controller = {
   },
 };
 
+controller
+  .create({
+    username: "super",
+    password: "supertest",
+    isSuperUser: true,
+  })
+  .then(() => {
+    console.info("Super user created.");
+  })
+  .catch((e) => {
+    console.error(e.message);
+  });
+
 export default controller;
