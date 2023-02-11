@@ -56,15 +56,10 @@ router.delete("/super/:id", async (req, res) => {
   if (!req.user?.isSuperUser) {
     res.status(401).json({ message: "Unauthorized" });
   } else {
-    userController
-      .delete(req.params.id)
-      .then(() => {
-        // Use 'end' instead of 'json' to send an empty response.
-        res.status(204).end();
-      })
-      .catch((e) => {
-        res.status(400).json({ message: e.message });
-      });
+    userController.delete(req.params.id).then(() => {
+      // Use 'end' instead of 'json' to send an empty response.
+      res.status(204).end();
+    });
   }
 });
 
