@@ -29,14 +29,17 @@ router.post("/register", async (req, res) => {
       });
     });
 
-    const token = await userController.show(
-      newUser.username,
+    if (newUser) {
+      const token = await userController.show(
+        newUser.username,
 
-      // * Use the password from the request body, not the hashed password.
-      req.password
-    );
+        // * Use the password from the request body, not the hashed password.
+        // It's in the request body because we are creating a new user.
+        req.body.password
+      );
 
-    newUser && res.json(token);
+      res.json(token);
+    }
   }
 });
 
@@ -46,6 +49,22 @@ router.post("/super", async (req, res) => {
   } else {
     const users = await userController.index();
     res.json(users);
+  }
+});
+
+router.delete("/super/:id", async (req, res) => {
+  if (!req.user?.isSuperUser) {
+    res.status(401).json({ message: "Unauthorized" });
+  } else {
+    userController
+      .delete(req.params.id)
+      .then(() => {
+        // Use 'end' instead of 'json' to send an empty response.
+        res.status(204).end();
+      })
+      .catch((e) => {
+        res.status(400).json({ message: e.message });
+      });
   }
 });
 

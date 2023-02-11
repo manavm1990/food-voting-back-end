@@ -37,6 +37,10 @@ const controller = {
   },
 
   delete(id) {
+    if (id === config.superAdminId) {
+      return Promise.reject(new Error("Cannot delete super admin."));
+    }
+
     return client.user.delete({ where: { id } });
   },
 };
