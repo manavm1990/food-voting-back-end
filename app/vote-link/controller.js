@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import client from "../client.js";
 
 const controller = {
-  getLinks(userId) {
+  index(userId) {
     return client.voteLink.findMany({
       where: {
         admin: {
@@ -12,7 +12,15 @@ const controller = {
     });
   },
 
-  create(admin) {
+  show(url) {
+    return client.voteLink.findUniqueOrThrow({
+      where: {
+        url,
+      },
+    });
+  },
+
+  create(admin, name) {
     return client.voteLink.create({
       data: {
         admin: {
@@ -21,11 +29,21 @@ const controller = {
           },
         },
         url: uuidv4(),
+        name,
       },
     });
   },
 
   async vote(url, cuisineVote) {
+    if (!cuisineVote) {
+      const error = new Error("Please select a cuisine");
+
+      // Make this match the HTTP status code
+      error.code = 400;
+
+      throw error;
+    }
+
     const voteLink = await client.voteLink.findUniqueOrThrow({
       where: {
         url,
@@ -33,7 +51,12 @@ const controller = {
     });
 
     if (!voteLink.isActive) {
-      throw new Error("This link is no longer active");
+      const error = new Error("This vote link has been deactivated");
+
+      // Make this match the HTTP status code
+      error.code = 400;
+
+      throw error;
     }
 
     const indexOfVote = voteLink.votes.findIndex(
@@ -57,7 +80,22 @@ const controller = {
     });
   },
 
-  deactivate(url) {
+  async deactivate(url, userId) {
+    const voteLink = await client.voteLink.findUniqueOrThrow({
+      where: {
+        url,
+      },
+    });
+
+    if (voteLink.adminId !== userId) {
+      const error = new Error("You are not authorized to deactivate this link");
+
+      // Make this match the HTTP status code
+      error.code = 401;
+
+      throw error;
+    }
+
     return client.voteLink.update({
       where: {
         url,
