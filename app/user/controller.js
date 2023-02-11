@@ -15,9 +15,9 @@ const controller = {
     });
 
     if (!(await isValid(user, password))) {
-      throw new Error(
-        config.errors.find((error) => error.code === "C0001").message
-      );
+      const error = new Error("Invalid username or password.");
+      error.code = 401;
+      throw error;
     }
 
     return generateToken(user);
