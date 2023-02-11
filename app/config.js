@@ -2,6 +2,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default {
+  errors: [
+    {
+      // https://www.prisma.io/docs/reference/api-reference/error-reference#prisma-client-query-engine
+      code: "P2002",
+      message: "If this related to a username, it's already taken.",
+    },
+    {
+      code: "C0001",
+      message: "Invalid credentials.",
+    },
+  ],
   jwt: {
     expiresIn: process.env.JWT_EXPIRES_IN,
     secret: process.env.JWT_SECRET,
