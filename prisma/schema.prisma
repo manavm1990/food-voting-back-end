@@ -35,4 +35,6 @@ model VoteLink {
   votes    VoteLinkVote[]
   mealTime DateTime?
   name     String
+  zipCode  String
+  radiusMeters Int        @default(40000)
 }
