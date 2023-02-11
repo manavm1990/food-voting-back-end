@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
         req.body.password
       );
 
-      res.json(token);
+      res.json({ token });
     }
   }
 });
