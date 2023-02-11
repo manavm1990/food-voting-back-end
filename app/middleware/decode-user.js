@@ -7,8 +7,15 @@ export default function decodeUser(req, res, next) {
   // This will either stay undefined or be set to the decoded token
   let decodedToken;
 
-  if (token) {
-    decodedToken = jwt.verify(token, config.jwt.secret);
+  try {
+    if (token) {
+      decodedToken = jwt.verify(token, config.jwt.secret);
+    }
+  } catch (e) {
+    if (e.name === "TokenExpiredError") {
+      res.status(401).json({ message: "Token expired." });
+    }
+    next();
   }
 
   // If we get the user info from the token, set it on the request
