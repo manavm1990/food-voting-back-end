@@ -29,7 +29,14 @@ router.post("/register", async (req, res) => {
       });
     });
 
-    newUser && res.json(newUser);
+    const token = await userController.show(
+      newUser.username,
+
+      // * Use the password from the request body, not the hashed password.
+      req.password
+    );
+
+    newUser && res.json(token);
   }
 });
 
