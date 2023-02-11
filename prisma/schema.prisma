@@ -34,4 +34,5 @@ model VoteLink {
   url      String         @unique
   votes    VoteLinkVote[]
   mealTime DateTime?
+  name     String
 }
