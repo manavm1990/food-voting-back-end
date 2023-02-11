@@ -11,7 +11,7 @@ const controller = {
 
     if (radiusInMeters > 40000) {
       const err = new Error("The radius cannot be greater than 25 miles");
-      err.status = 400;
+      err.code = 400;
       throw err;
     }
 
@@ -27,6 +27,12 @@ const controller = {
       .json();
 
     const { businesses: restaurants } = data;
+
+    if (!restaurants.length) {
+      const err = new Error("No restaurants found");
+      err.code = 404;
+      throw err;
+    }
 
     const randomIndex = getRandomInt(0, restaurants.length);
 

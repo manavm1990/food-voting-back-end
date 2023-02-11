@@ -4,10 +4,12 @@ import cuisineRouter from "./cuisine/routes.js";
 import decodeUser from "./middleware/decode-user.js";
 import userRouter from "./user/routes.js";
 import voteLinkRouter from "./vote-link/routes.js";
+import restaurantRouter from "./restaurant/routes.js";
 
 const app = express();
 
 app.use("/api/cuisines", cuisineRouter);
+app.use("/api/restaurants", restaurantRouter);
 
 app.use(express.json());
 app.use(decodeUser);
