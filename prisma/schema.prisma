@@ -23,6 +23,7 @@ model User {
   password String
   VoteLink VoteLink[]
   isSuperUser Boolean @default(false)
+  avatarUrl String?
 }
 
 model VoteLink {
@@ -32,5 +33,5 @@ model VoteLink {
   isActive Boolean        @default(true)
   url      String         @unique
   votes    VoteLinkVote[]
-  mealTime DateTime
+  mealTime DateTime?
 }
