@@ -5,8 +5,8 @@
  */
 
 import bcrypt from "bcrypt";
-import config from "../config.js";
 import jwt from "jsonwebtoken";
+import config from "../config.js";
 
 function validateUser(user) {
   if (user.username?.length < 3 || user.username?.length > 20)
@@ -19,11 +19,15 @@ function validateUser(user) {
     throw new Error("Password must be between 8 and 20 characters.");
 }
 
+// TODO: https://expressjs.com/en/resources/middleware/session.html
 export const generateToken = (user) => {
   return jwt.sign(
     {
-      id: user.id,
-      username: user.username,
+      user: {
+        id: user.id,
+        username: user.username,
+        isSuperUser: user.isSuperUser,
+      },
     },
     config.jwt.secret,
     {
