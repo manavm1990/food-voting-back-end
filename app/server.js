@@ -5,9 +5,11 @@ import decodeUser from "./middleware/decode-user.js";
 import userRouter from "./user/routes.js";
 import voteLinkRouter from "./vote-link/routes.js";
 import restaurantRouter from "./restaurant/routes.js";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use("/api/cuisines", cuisineRouter);
 app.use("/api/restaurants", restaurantRouter);
 
