@@ -21,6 +21,7 @@ const controller = {
   },
 
   create(admin, name) {
+    const url = uuidv4();
     return client.voteLink.create({
       data: {
         admin: {
@@ -28,8 +29,8 @@ const controller = {
             id: admin,
           },
         },
-        url: uuidv4(),
-        name,
+        url,
+        name: name || url,
       },
     });
   },
