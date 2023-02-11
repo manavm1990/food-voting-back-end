@@ -1,6 +1,21 @@
 import client from "../client.js";
+import { generateToken, isValid } from "./utils.js";
 
 const controller = {
+  async show(username, password) {
+    const user = await client.user.findUniqueOrThrow({
+      where: {
+        username,
+      },
+    });
+
+    if (!(await isValid(user, password))) {
+      throw new Error("Invalid credentials.");
+    }
+
+    return generateToken(user);
+  },
+
   create(newUser) {
     return client.user.create({ data: newUser });
   },
@@ -14,22 +29,5 @@ const controller = {
     });
   },
 };
-
-const createdUser = await controller
-  .create({
-    username: "john",
-    password: "password",
-  })
-  .catch((err) => {
-    console.error(err.message);
-  });
-
-console.log(createdUser, "createdUser");
-
-const updatedUser = await controller.update(createdUser.id, {
-  username: "johnny",
-});
-
-console.log(updatedUser, "updatedUser");
 
 export default controller;

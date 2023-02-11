@@ -6,6 +6,7 @@
 
 import bcrypt from "bcrypt";
 import config from "../config.js";
+import jwt from "jsonwebtoken";
 
 function validateUser(user) {
   if (user.username?.length < 3 || user.username?.length > 20)
@@ -17,6 +18,23 @@ function validateUser(user) {
   if (user.password?.length < 8 || user.password?.length > 20)
     throw new Error("Password must be between 8 and 20 characters.");
 }
+
+export const generateToken = (user) => {
+  return jwt.sign(
+    {
+      id: user.id,
+      username: user.username,
+    },
+    config.jwt.secret,
+    {
+      expiresIn: config.jwt.expiresIn,
+    }
+  );
+};
+
+export const isValid = (user, password) => {
+  return bcrypt.compare(password, user.password);
+};
 
 export const prepUser = async (user) => {
   validateUser(user);
