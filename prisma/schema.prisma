@@ -32,4 +32,5 @@ model VoteLink {
   isActive Boolean        @default(true)
   url      String         @unique
   votes    VoteLinkVote[]
+  mealTime DateTime
 }
