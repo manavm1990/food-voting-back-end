@@ -57,12 +57,16 @@ const controller = {
     });
   },
 
-  // TODO: Deactivate link
+  deactivate(url) {
+    return client.voteLink.update({
+      where: {
+        url,
+      },
+      data: {
+        isActive: false,
+      },
+    });
+  },
 };
-
-const updatedVote = await controller.vote(
-  "8ea4573e-b7e2-4d0d-babc-7a1db24a2ad5",
-  "Chinese"
-);
 
 export default controller;
