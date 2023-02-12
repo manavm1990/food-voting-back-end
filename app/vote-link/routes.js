@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
     res.status(401).send("Unauthorized");
   }
 
-  VoteLinkController.create(req.user.id, req.body.name)
+  VoteLinkController.create(req.user.id, req.body)
     .then((voteLink) => {
       res.json({
         name: voteLink.name,
@@ -57,8 +57,9 @@ router.put("/:url/vote", (req, res) => {
       });
     })
     .catch((err) => {
-      err.code ? res.status(err.code) : res.status(500);
-      res.json({ message: err.message });
+      // TODO: Improve the status code handling
+      // err.code ? res.status(err.code) : res.status(500);
+      res.status(500).json({ message: err.message });
     });
 });
 
