@@ -6,8 +6,8 @@ const router = Router();
 router.get("/", (_, res) => {
   userController
     .index()
-    .then((users) => {
-      res.json(users);
+    .then((cuisines) => {
+      res.json(cuisines);
     })
     .catch((err) => {
       res.status(500).json(err);
