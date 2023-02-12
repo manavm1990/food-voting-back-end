@@ -3,6 +3,7 @@
   "main": "app/index.js",
   "type": "module",
   "scripts": {
+    "build": "prisma generate",
     "start": "node --watch app/index.js",
     "dep-graph": "depcruise --exclude \"^node_modules\" --output-type dot app | dot -T svg > dependency-graph.svg",
     "test": "vitest"
