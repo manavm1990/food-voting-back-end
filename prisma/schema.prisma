@@ -8,8 +8,8 @@ datasource db {
 }
 
 type VoteLinkVote {
-  numOfVotes   Int
-  cuisine String
+  numOfVotes Int
+  cuisine    String
 }
 
 model Cuisine {
@@ -18,23 +18,23 @@ model Cuisine {
 }
 
 model User {
-  id       String     @id @default(auto()) @map("_id") @db.ObjectId
-  username String     @unique
-  password String
-  VoteLink VoteLink[]
-  isSuperUser Boolean @default(false)
-  avatarUrl String?
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  username    String     @unique
+  password    String
+  VoteLink    VoteLink[]
+  isSuperUser Boolean    @default(false)
+  avatarUrl   String?
 }
 
 model VoteLink {
-  id       String         @id @default(auto()) @map("_id") @db.ObjectId
-  admin    User           @relation(fields: [adminId], references: [id])
-  adminId  String         @db.ObjectId
-  isActive Boolean        @default(true)
-  url      String         @unique
-  votes    VoteLinkVote[]
-  mealTime DateTime?
-  name     String
-  zipCode  String
-  radiusMeters Int        @default(40000)
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  admin        User           @relation(fields: [adminId], references: [id])
+  adminId      String         @db.ObjectId
+  isActive     Boolean        @default(true)
+  url          String         @unique
+  votes        VoteLinkVote[]
+  mealTime     DateTime?
+  name         String
+  zipCode      String
+  radiusMeters Int            @default(40000)
 }
