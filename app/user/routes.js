@@ -1,4 +1,5 @@
 import { Router } from "express";
+import voteLinkController from "../vote-link/controller.js";
 import userController from "./controller.js";
 
 const router = new Router();
@@ -54,10 +55,10 @@ router.delete("/super/:id", async (req, res) => {
   if (!req.user?.isSuperUser) {
     res.status(401).json({ message: "Unauthorized" });
   } else {
-    userController.delete(req.params.id).then(() => {
-      // Use 'end' instead of 'json' to send an empty response.
-      res.status(204).end();
-    });
+    await voteLinkController.destroyBySuperUser(req.params.id);
+    await userController.delete(req.params.id);
+
+    res.status(204).end();
   }
 });
 

@@ -107,6 +107,14 @@ const controller = {
       },
     });
   },
+
+  destroyBySuperUser(userId) {
+    return client.voteLink.deleteMany({
+      where: {
+        adminId: userId,
+      },
+    });
+  },
 };
 
 export default controller;
