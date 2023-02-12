@@ -9,7 +9,8 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+// TODO: Limit CORS to only the frontend
+app.use(cors());
 app.use("/api/cuisines", cuisineRouter);
 app.use("/api/restaurants", restaurantRouter);
 
