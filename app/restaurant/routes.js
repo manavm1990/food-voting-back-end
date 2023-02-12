@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
       res.json(restaurant);
     })
     .catch((err) => {
-      err.code ? res.status(err.code) : res.status(500);
+      parseInt(err.code) ? res.status(err.code) : res.status(500);
       res.json({ message: err.message });
     });
 });

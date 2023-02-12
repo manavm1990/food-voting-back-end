@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
       res.json(voteLinks);
     })
     .catch((err) => {
-      err.code ? res.status(err.code) : res.status(500);
+      parseInt(err.code) ? res.status(err.code) : res.status(500);
       res.json({ message: err.message });
     });
 });
@@ -24,7 +24,7 @@ router.get("/:url", (req, res) => {
       res.json(voteLink);
     })
     .catch((err) => {
-      err.code ? res.status(err.code) : res.status(500);
+      parseInt(err.code) ? res.status(err.code) : res.status(500);
       res.json({ message: err.message });
     });
 });
@@ -43,7 +43,7 @@ router.post("/", (req, res) => {
       });
     })
     .catch((err) => {
-      err.code ? res.status(err.code) : res.status(500);
+      parseInt(err.code) ? res.status(err.code) : res.status(500);
       res.json({ message: err.message });
     });
 });
@@ -57,8 +57,7 @@ router.put("/:url/vote", (req, res) => {
       });
     })
     .catch((err) => {
-      // TODO: Improve the status code handling
-      // err.code ? res.status(err.code) : res.status(500);
+      parseInt(err.code) ? res.status(err.code) : res.status(500);
       res.status(500).json({ message: err.message });
     });
 });
@@ -73,7 +72,7 @@ router.put("/:url/deactivate", (req, res) => {
       res.json(voteLink);
     })
     .catch((err) => {
-      err.code ? res.status(err.code) : res.status(500);
+      parseInt(err.code) ? res.status(err.code) : res.status(500);
       res.json({ message: err.message });
     });
 });
