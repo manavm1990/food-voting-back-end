@@ -4,7 +4,9 @@ import { generateToken, isValid } from "./utils.js";
 
 const controller = {
   async index() {
-    return client.user.findMany();
+    return client.user.findMany({
+      select: { id: true, username: true },
+    });
   },
 
   async show(username, password) {
