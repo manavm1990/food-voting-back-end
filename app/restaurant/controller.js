@@ -7,13 +7,10 @@ const controller = {
   async getRandomRestaurant({ location, radius = 40000, category } = {}) {
     // * Convert the radius from miles to meters
     // * Round the radius to the nearest whole number (not decimals)
-    const radiusInMeters = Math.round(convertMiles2Meters(radius));
+    let radiusInMeters = Math.round(convertMiles2Meters(radius));
 
-    if (radiusInMeters > 40000) {
-      const err = new Error("The radius cannot be greater than 25 miles");
-      err.code = 400;
-      throw err;
-    }
+    // * Limit the radius to 40,000 meters (24.85 miles)
+    radiusInMeters = radiusInMeters > 40000 ? 40000 : radiusInMeters;
 
     const url = `https://api.yelp.com/v3/businesses/search?location=${location}&radius=${radiusInMeters}&term=restaurants&categories=${category}&sort_by=best_match`;
 
