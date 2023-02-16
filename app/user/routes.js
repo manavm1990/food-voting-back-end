@@ -23,6 +23,7 @@ router.post("/register", async (req, res) => {
     res.status(400).json({ message: "Already logged in." });
   } else {
     const newUser = await userController.create(req.body).catch((err) => {
+      // TODO: Handle duplicate username error without just returning 500.
       parseInt(err.code) ? res.status(err.code) : res.status(500);
       res.json({ message: err.message });
     });

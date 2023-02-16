@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
   if (!req.user) {
     res.status(401).send("Unauthorized");
   }
-  console.log(req.body);
+
   VoteLinkController.create(req.user.id, req.body)
     .then((voteLink) => {
       res.json({

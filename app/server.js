@@ -21,6 +21,6 @@ app.use("/api/vote-links", voteLinkRouter);
 
 export default () => {
   app.listen(config.port, () => {
-    console.log("Server running: http://localhost:" + config.port);
+    console.info("Server running: http://localhost:" + config.port);
   });
 };
