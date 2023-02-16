@@ -17,7 +17,7 @@ app.use("/api/restaurants", restaurantRouter);
 app.use(express.json());
 app.use(decodeUser);
 app.use("/api/users", userRouter);
-app.use("/api/votelinks", voteLinkRouter);
+app.use("/api/vote-links", voteLinkRouter);
 
 export default () => {
   app.listen(config.port, () => {
