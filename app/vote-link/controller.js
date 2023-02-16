@@ -20,7 +20,7 @@ const controller = {
     });
   },
 
-  create(admin, { name, zipCode }) {
+  create(admin, { name, location }) {
     const url = uuidv4();
     return client.voteLink.create({
       data: {
@@ -31,7 +31,7 @@ const controller = {
         },
         url,
         name: name || url,
-        zipCode,
+        location,
       },
     });
   },
