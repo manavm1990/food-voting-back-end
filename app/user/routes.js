@@ -19,27 +19,29 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  if (req.user?.username) {
-    res.status(400).json({ message: "Already logged in." });
-  } else {
-    const newUser = await userController.create(req.body).catch((err) => {
-      // TODO: Handle duplicate username error without just returning 500.
-      parseInt(err.code) ? res.status(err.code) : res.status(500);
-      res.json({ message: err.message });
-    });
+  if (req.user?.username)
+    return res.status(400).json({ message: "Already logged in." });
 
-    if (newUser) {
-      const token = await userController.show(
-        newUser.username,
+  const newUser = await userController.create(req.body).catch((err) => {
+    if (err.code === "P2002" && err.meta?.target?.includes("username"))
+      // This 'return' only exits the catch block, not the entire function.
+      return res.status(400).json({ message: "Username already exists." });
 
-        // * Use the password from the request body, not the hashed password.
-        // It's in the request body because we are creating a new user.
-        req.body.password
-      );
+    res.json({ message: err.message });
+  });
 
-      res.json({ token });
-    }
-  }
+  // If the user was not created, return.
+  if (!newUser.username) return;
+
+  const token = await userController.show(
+    newUser.username,
+
+    // * Use the password from the request body, not the hashed password.
+    // It's in the request body because we are creating a new user.
+    req.body.password
+  );
+
+  res.json({ token });
 });
 
 router.post("/super", async (req, res) => {
